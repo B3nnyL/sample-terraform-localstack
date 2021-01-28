@@ -7,6 +7,7 @@ Sample project to use Terraform, Localstack (AWS Local) and Docker compose with 
 
 As this is a simple example I will use only this references. Please change it :wink:
 
+create a .env
 ```
 AWS_ACCESS_KEY_ID='123'
 AWS_SECRET_KEY='xyz'
@@ -21,23 +22,23 @@ AWS_BUCKET_REGION='us-east-1'
 - You need to simulate AWS in local?. 
     - I used [Localstack](https://localstack.cloud/) as part of the docker compose dependencies. Let's keep it simple and clean :muscle:
     - Just run `docker-compose up`
-    - Check `http://localhost:8055/#/infra`
+    - Check `http://localhost:8080/#/infra`, or check logs
 
 
 **Time to play**
 - You need to run/test [Terraform scripts](https://www.terraform.io/)? 
     - You need to [install Terraform in your machine](https://learn.hashicorp.com/terraform/azure/install_az) (for mac: `brew install terraform`)
     - Check the example file `main.tf`
+        - update resource endpoints [doc](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/guides/custom-service-endpoints#localstack)
     - Initialize the enviroment `terraform init`
     - Execute it `terraform apply`
-    - Check `http://localhost:4572/` and `http://localhost:8055/#/infra`
+    - Check log see if new resource created, or run this command ``aws --endpoint-url=http://localhost:4566 s3 ls`
 - You need to run AWS Cli commands?
     - You need to install [AWS CLI](https://docs.aws.amazon.com/es_es/cli/latest/userguide/cli-chap-install.html) (for mac: `brew install awscli`)
     - Example of bucket creation
         - Update you config `aws config` check `.env`
-        - Create Bucket `aws --endpoint-url=http://localhost:4572 s3 mb s3://demo-bucket`
-        - Attach an [ACL](https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html) to the bucket so it is readable `aws --endpoint-url=http://localhost:4572 s3api put-bucket-acl --bucket demo-bucket --acl public-read`
-    - Check `http://localhost:4572/` and `http://localhost:8055/#/infra`
+        - Create Bucket `aws --endpoint-url=http://localhost:4566 s3 mb s3://demo-bucket`
+        - Attach an [ACL](https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html) to the bucket so it is readable `aws --endpoint-url=http://localhost:4566 s3api put-bucket-acl --bucket demo-bucket --acl public-read`
 - You need to run SDK Scripts?
     - [Install Node](https://nodejs.org/en/download/)
     - Check `aws.js` and `upload-demo.js`

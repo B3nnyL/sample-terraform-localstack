@@ -158,3 +158,8 @@ override.tf.json
 # example: *tfplan*
 
 # End of https://www.gitignore.io/api/node,code,macos,terraform
+
+.localstack/
+.terraform
+.vscode
+*.hcl

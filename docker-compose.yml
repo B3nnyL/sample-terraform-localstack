@@ -1,11 +1,11 @@
 version: '3.2'
 services:
   localstack:
-    image: localstack/localstack:latest
+    image: localstack/localstack-full:latest
     container_name: localstack_demo
     ports:
       - '4563-4584:4563-4584'
-      - '8055:8080'
+      - '8080:8080'
     environment:
       - SERVICES=s3
       - DEBUG=1
